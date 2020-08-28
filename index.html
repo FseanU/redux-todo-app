@@ -20,6 +20,13 @@
     </div>
 
     <script type="text/javascript">
+      function generateId() {
+        return (
+          Math.random().toString(36).substring(2) +
+          new Date().getTime().toString(36)
+        );
+      }
+
       // Library Code
       function createStore(reducer) {
         // The store should have four parts
@@ -135,13 +142,42 @@
         console.log("The new state is: ", store.getState());
       });
 
-      store.dispatch(
-        addTodoAction({
-          id: 0,
-          name: "Learn Redux",
-          complete: false,
-        })
-      );
+      // store.dispatch(
+      //   addTodoAction({
+      //     id: 0,
+      //     name: "Learn Redux",
+      //     complete: false,
+      //   })
+      // );
+      function addTodo() {
+        const input = document.getElementById("todo");
+        const name = input.value;
+        input.value = "";
+
+        store.dispatch(
+          addTodoAction({
+            name,
+            complete: false,
+            id: generateId(),
+          })
+        );
+      }
+
+      function addGoal() {
+        const input = document.getElementById("goal");
+        const name = input.value;
+        input.value = "";
+
+        store.dispatch(
+          addGoalAction({
+            name,
+            id: generateId(),
+          })
+        );
+      }
+
+      document.getElementById("todo-btn").addEventListener("click", addTodo);
+      document.getElementById("goal-btn").addEventListener("click", addGoal);
     </script>
   </body>
 </html>

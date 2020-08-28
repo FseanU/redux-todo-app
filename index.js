@@ -38,3 +38,9 @@ function todos (state = [], action) {
 
   return state;
 }
+
+const store = createStore(todos);
+
+store.subscribe(() => {
+  console.log('The new state is: ', store.getState())
+})

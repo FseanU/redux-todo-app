@@ -132,7 +132,7 @@
       function app(state = {}, action) {
         return {
           todos: todos(state.todos, action),
-          goals: goals(state.todos, action),
+          goals: goals(state.goals, action),
         };
       }
 
@@ -140,6 +140,9 @@
 
       store.subscribe(() => {
         const { goals, todos } = store.getState();
+        console.log(store.getState());
+        document.getElementById("goals").innerHTML = "";
+        document.getElementById("todos").innerHTML = "";
 
         goals.forEach(addGoalToDOM);
         todos.forEach(addTodoToDOM);
@@ -185,6 +188,7 @@
       function addTodoToDOM(todo) {
         const node = document.createElement("li");
         const text = document.createTextNode(todo.name);
+        console.log("todo: ", todo);
         node.appendChild(text);
 
         document.getElementById("todos").appendChild(node);
@@ -193,9 +197,10 @@
       function addGoalToDOM(goal) {
         const node = document.createElement("li");
         const text = document.createTextNode(goal.name);
+        console.log("goal: ", goal);
         node.appendChild(text);
 
-        document.getElementById("goals").appendChild(node);
+        document.getElementById("goals").append(node);
       }
     </script>
   </body>

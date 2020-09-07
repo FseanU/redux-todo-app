@@ -73,6 +73,16 @@
         };
       }
 
+      function handleInitialData() {
+        return (dispatch) => {
+          Promise.all([API.fetchTodos(), API.fetchGoals()]).then(
+            ([todos, goals]) => {
+              dispatch(receiveDataAction(todos, goals));
+            }
+          );
+        };
+      }
+
       function handleAddTodo(name, callback) {
         return (dispatch) => {
           return API.saveTodo(name)
@@ -298,13 +308,9 @@
         componentDidMount() {
           const { store } = this.props;
 
-          store.subscribe(() => this.forceUpdate());
+          store.dispatch(handleInitialData());
 
-          Promise.all([API.fetchTodos(), API.fetchGoals()]).then(
-            ([todos, goals]) => {
-              store.dispatch(receiveDataAction(todos, goals));
-            }
-          );
+          store.subscribe(() => this.forceUpdate());
         }
 
         render() {

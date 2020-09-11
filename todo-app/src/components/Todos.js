@@ -5,7 +5,7 @@ import {
   handleAddTodo,
   handleDeleteTodo,
   handleToggleTodo
-} from '../action/todos'
+} from '../actions/todos'
 
 class Todos extends React.Component {
   addItem = (e) => {
@@ -46,5 +46,3 @@ class Todos extends React.Component {
 export default connect((state) => ({
   todos: state.todos
 }))(Todos)
-
-export default Todos
